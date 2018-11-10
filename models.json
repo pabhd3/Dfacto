@@ -1,19 +1,19 @@
 {
-    "interests": ["string"],
-    "hobbies": ["string"],
-    "funfacts": ["string"],
-    "skills": [ {
+    "interests": { "type": "string" },
+    "hobbies": { "type": "string" },
+    "funfacts": { "type": "string" },
+    "skill": {
             "skillname": {
-                "skilllevel" : 0,
-                "skillinterest" : 0
+                "skilllevel" : { "type": "int" },
+                "skillinterest" : { "type": "int" }
             }
         }
-    ],
+    ,
     "consultant" : {
-        "name" : "string",
-        "skills" : "skills",
-        "interests" : "interests",
-        "hobbies" : "hobbies",
-        "funfacts" : "funfacts"
+        "name" : [{ "type": "string" }],
+        "skills": [{ "type": "skills" }],
+        "interests": [{ "type": "interests" }],
+        "hobbies": [{ "type": "hobbies" }],
+        "funfacts": [{ "type": "funfacts" }]
     }
 }
