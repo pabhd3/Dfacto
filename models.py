@@ -13,8 +13,11 @@ USER = {
     "optIn": "",
     # Free form
     "interests": "",
+    "interestsSlackTS": "",
     "hobbys": "",
+    "hobbysSlackTS": "",
     "funFact": "",
+    "funFactSlackTS": "",
     # Skills
     "agileLevel": "",
     "agileLevelSkackTS": "",

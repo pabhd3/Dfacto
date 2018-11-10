@@ -5,7 +5,6 @@ from os import environ
 from slackclient import SlackClient
 from pymongo import MongoClient
 from bson import ObjectId
-import models
 from Dfacto import messageSlack
 
 
@@ -43,7 +42,7 @@ def askAQuestion(user):
                     question += "_On a scale of 0-10, how much interest do you have in {skill}_".format(skill=skill.replace("Interest", ""))
                 slackTS = "{skill}SlackTS".format(skill=skill)
                 break
-    question += "\nReply to this message with your answer."
+    question += "\nReply to this message's thread with your answer."
     if(question != "*Daily Question*\n\nReply to this message with your answer."):
         # Send the message to the user
         message = messageSlack(client=slack, channel=user["slackChannel"], attachments=[], message=question)
@@ -57,6 +56,7 @@ def askAQuestion(user):
 if __name__ == "__main__":
     # Instantiate Slack Connection
     slack = SlackClient(SLACK_BOT_TOKEN)
+    print("Successfully connected to Slack!")
     # Instantiate Mongo Connection
     mongo = MongoClient("localhost", 27017)
     mongoDB = mongo.USERS
