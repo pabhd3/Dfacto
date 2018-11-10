@@ -28,10 +28,10 @@ def retrieveReplies(user):
                 {"type": "client", "ts": user["client"]["ts"]}, 
                 {"type": "project", "ts": user["project"]["ts"]},
                 {"type": "interests", "ts": user["interests"]["ts"]},
-                {"type": "hobbys", "ts": user["hobbys"]["ts"]},
-                {"type": "funFacts", "ts": user["funFacts"]["ts"]}]
-    slackTS += [{"type": "interest", "ts": user["skills"][skillLevel]["level"]["ts"]} for skillLevel in user["skills"]]
-    slackTS += [{"type": "interest", "ts": user["skills"][skillInterest]["interest"]["ts"]} for skillInterest in user["skills"]]
+                {"type": "hobbys", "ts": user["hobbys"]["ts"]}]
+#                {"type": "funFacts", "ts": user["funFacts"]["ts"]}]
+    slackTS += [{"type": "interest", "ts": user["skills"][skill]["interest"]["ts"]} for skill in user["skills"]]
+    slackTS += [{"type": "level", "ts": user["skills"][skill]["level"]["ts"]} for skill in user["skills"]]
     print(slackTS)
     for ts in slackTS:
         if(ts["ts"] != ""):
@@ -39,10 +39,10 @@ def retrieveReplies(user):
             for reply in replyData["messages"]:
                 if(reply["user"] == user["slack"]["user"]):
                     slackTSReply = reply["text"]
-                    if(ts["type"] in ("name", "client", "project", "interests", "hobbys")):
-                        mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {ts["type"]: {ts["type"]: slackTSReply}}})
-                    else:
-                        mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {"skills": {ts["type"]: {ts["type"]: slackTSReply}}}})
+                    if(ts["type"] in ("name", "client", "project", "interests", "hobbys", "funFacts")):
+                        mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {ts["type"]: {ts["type"]: slackTSReply, "ts": ts["ts"]}}})
+                    #else:
+                    #    mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {"skills": {ts["type"]: {ts["type"]: slackTSReply, "ts": ts["ts"]}}}})
     '''
     for ts in slackTS:
         if(user[ts] != "" and user[ts.replace("SlackTS", "")] == ""):

@@ -24,11 +24,11 @@ def askAQuestion(user):
         question += "_What is your name (first and last)?_"
         slackTS = "name"
     # Check if have a client
-    elif(user["client"]["name"] == ""):
+    elif(user["client"]["client"] == ""):
         question += "_What engagement are you currently at?_"
         slackTS = "client"
     # Check if we have a project
-    elif(user["project"]["name"] == ""):
+    elif(user["project"]["project"] == ""):
         question += "_What projet are you currently working on?_"
         slackTS = "project"
     # Check if we have a interests
@@ -40,21 +40,34 @@ def askAQuestion(user):
         question += "_What hobbys do you have?_"
         slackTS = "hobbys"
     # Check if we have a fun facts
-    elif(user["funFacts"]["funFacts"] == ""):
-        question += "_What are some fun facts about you?_"
-        slackTS = "funFacts"
+    # elif(user["funFacts"]["funFacts"] == ""):
+    #     question += "_What are some fun facts about you?_"
+    #     slackTS = "funFacts"
     # Start running through skills
     else:
+        foundBlank = False
         for skill in user["skills"]:
+            print(skill)
             for levelInterest in user["skills"][skill]:
+                print(levelInterest)
                 if(levelInterest == "level"):
-                    if(user["skills"][skill]["level"] == ""):
+                    print('user["skills"][skill]["level"]', user["skills"][skill]["level"])
+                    if(user["skills"][skill]["level"]["level"] == ""):
+                        print("BLANK LEVEL")
                         question += "_On a scale of 0-10, how well do you know {skill}?_".format(skill=skill.replace("Level", ""))
                         slackTS = {"skill": skill, "type": "level"}
+                        foundBlank = True
                 else:
-                    if(user["skills"][skill]["interest"] == ""):
+                    print('user["skills"][skill]["interest"]', user["skills"][skill]["interest"])
+                    if(user["skills"][skill]["interest"]["interest"] == ""):
+                        print("BLANK INTEREST")
                         question += "_On a scale of 0-10, how much interest do you have in {skill}_".format(skill=skill.replace("Interest", ""))
                         slackTS = {"skill": skill, "type": "interest"}
+                        foundBlank = True
+                if(foundBlank):
+                    break
+            if(foundBlank):
+                break
     question += "\nReply to this message's thread with your answer."
     if(question != "*Daily Question*\n\nReply to this message with your answer."):
         # Send the message to the user
@@ -62,7 +75,7 @@ def askAQuestion(user):
         #message = messageSlack(client=slack, channel=user["slackChannel"], attachments=[], message=question)
         # Update Mongo
         try:
-            if(type(slackTS) == type("str")):
+            if(slackTS in ("name", "client", "project", "interests", "hobbys", "funFacts")):
                 mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {slackTS: {"ts": message["ts"]}}})
             else:
                 mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {"skills": {slackTS["skill"]: {slackTS["type"]: {"ts": message["ts"]}}}}})

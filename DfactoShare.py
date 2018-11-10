@@ -25,5 +25,12 @@ if __name__ == "__main__":
     mongoDB = mongo.USERS
     print("Successfully connected to Mongo!")
     # Pull list of users
-    for userData in mongoDB.users.find():
-        print(userData)
+    users = mongoDB.users.find()
+    for userData in users:
+        if(userData["client"]["client"] == "" and userData["project"]["project"] == "" and
+            userData["interests"]["interests"] and userData["hobbys"]["hobbys"] and
+            userData["funFacts"]["funFacts"] and userData["skills"]["agile"]["level"]["level"] and
+            userData["skills"]["agile"]["interest"]["interest"] and userData["skills"]["javascript"]["level"]["level"] and
+            userData["skills"]["javascript"]["interest"]["interest"] and userData["skills"]["python"]["interest"]["interest"] and
+            userData["skills"]["python"]["level"]["level"]):
+            users.pop(users.index(userData))

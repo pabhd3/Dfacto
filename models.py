@@ -45,7 +45,7 @@ USER_V2 = {
         "ts": ""
     },
     "project": {
-        "projet": "",
+        "project": "",
         "ts": ""
     },
     "slack": {
@@ -61,10 +61,10 @@ USER_V2 = {
         "hobbys": "",
         "ts": ""
     },
-    "funFacts": {
-        "funFacts": "",
-        "ts": ""
-    },
+#    "funFacts": {
+#        "funFacts": "",
+#        "ts": ""
+#    },
     "skills": {
         "agile": {
             "level": {
