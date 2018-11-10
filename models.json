@@ -11,7 +11,7 @@
     ,
     "consultant" : {
         "name" : [{ "type": "string" }],
-        "picture": [{ "type": "string" }],
+        "picture": { "type": "string" },
         "skills": [{ "type": "skills" }],
         "interests": [{ "type": "interests" }],
         "hobbies": [{ "type": "hobbies" }],
