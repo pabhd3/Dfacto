@@ -42,10 +42,16 @@ def handleMessage(message, channel, user):
     if(message == "opt in"):
         # Add user to Mongo
         if(not mongoDB.users.find_one({"slackUsername": user})):
+            '''
             newUser = models.USER
             newUser["slackUsername"] = user
             newUser["slackChannel"] = channel
             newUser["optIn"] = datetime.strftime(datetime.now(), "%A, %B %d %Y %I:%M:%S.%f %p")
+            '''
+            newUser = models.USER_V2
+            newUser["slack"]["user"] = user
+            newUser["slack"]["channel"] = channel
+            newUser["slack"]["optIn"] = datetime.strftime(datetime.now(), "%A, %B %d %Y %I:%M:%S.%f %p")
             try:
                 mongoDB.users.insert_one(newUser)
             except Exception as e:
@@ -74,6 +80,7 @@ def parseSlackMessageRTM(slackRTM):
 if __name__ == "__main__":
     # Instantiate Slack Connection
     slack = SlackClient(SLACK_BOT_TOKEN)
+    print("Successfully connected to Slack!")
     # Instantiate Mongo Connection
     mongo = MongoClient("localhost", 27017)
     mongoDB = mongo.USERS
@@ -82,7 +89,7 @@ if __name__ == "__main__":
     try:
         # Connect to Slack RTM
         if(slack.rtm_connect()):
-            print("Successfully connected to Slack!")
+            print("Successfully connected to Slack RTM!")
             while(True):
                 # Parse Slack RTM and Handle Message
                 message, channel, user = parseSlackMessageRTM(slack.rtm_read())

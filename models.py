@@ -33,3 +33,68 @@ USER = {
     "pythonInterest": "",
     "pythonInterestSlackTS": ""
 }
+
+USER_V2 = {
+    "name": {
+        "name": "",
+        "ts": ""
+    },
+    "image": "",
+    "client": {
+        "client": "",
+        "ts": ""
+    },
+    "project": {
+        "projet": "",
+        "ts": ""
+    },
+    "slack": {
+        "user": "",
+        "channel": "",
+        "optIn": ""
+    },
+    "interests": {
+        "interests": "",
+        "ts": ""
+    },
+    "hobbys": {
+        "hobbys": "",
+        "ts": ""
+    },
+    "funFacts": {
+        "funFacts": "",
+        "ts": ""
+    },
+    "skills": {
+        "agile": {
+            "level": {
+                "level": "",
+                "ts": ""
+            },
+            "interest": {
+                "interest": "",
+                "ts": ""
+            }
+        },
+        "javascript": {
+            "level": {
+                "level": "",
+                "ts": ""
+            },
+            "interest": {
+                "interest": "",
+                "ts": ""
+            }
+        },
+        "python": {
+            "level": {
+                "level": "",
+                "ts": ""
+            },
+            "interest": {
+                "interest": "",
+                "ts": ""
+            }
+        }
+    }
+}
