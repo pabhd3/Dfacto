@@ -1,0 +1,2 @@
+slackclient==1.2.1
+virtualenv==16.1.0
