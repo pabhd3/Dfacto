@@ -1,0 +1,6 @@
+"skills" : {
+"skillname" : {
+	"skilllevel" : enum
+	"skillinterest" : enum
+	}
+}

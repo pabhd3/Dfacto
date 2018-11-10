@@ -1,0 +1,18 @@
+consultant : {
+	"name" : str
+	"skills" : {
+		"skillname" : {
+			"skilllevel" : enum
+			"skillinterest" : enum
+			}
+	}
+	"interests" : {
+		int : str
+	}
+	"hobbies" : {
+		int : str
+	}
+	"funfacts" : {
+		int : str
+	}
+}
