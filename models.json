@@ -1,0 +1,20 @@
+{
+    "interest": { "type": "string" },
+    "hobby": { "type": "string" },
+    "funfact": { "type": "string" },
+    "skill": {
+            "skillname": {
+                "skilllevel" : { "type": "int" },
+                "skillinterest" : { "type": "int" }
+            }
+        }
+    ,
+    "consultant" : {
+        "name" : { "type": "string" },
+        "picture": { "type": "string" },
+        "skills": [{ "type": "skill" }],
+        "interests": [{ "type": "interest" }],
+        "hobbies": [{ "type": "hobby" }],
+        "funfacts": [{ "type": "funfact" }]
+    }
+}
