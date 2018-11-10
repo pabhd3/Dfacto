@@ -1,7 +1,12 @@
 USER = {
     # Basic Info
     "name": "",
+    "nameSlackTS": "",
     "image": "",
+    "client": "",
+    "clientSlackTS": "",
+    "project": "",
+    "projectSlackTS": "",
     # Slack Identifiers
     "slackUsername": "",
     "slackChannel": "",
@@ -12,9 +17,16 @@ USER = {
     "funFact": "",
     # Skills
     "agileLevel": "",
+    "agileLevelSkackTS": "",
     "agileInterest": "",
+    "agileInterestSlackTS": "",
     "javascriptLevel": "",
+    "javascriptLevelSlackTS": "",
     "javascriptInterest": "",
+    "javascriptInterestSlackTS": "",
+    "javascriptSlackTS": "",
     "pythonLevel": "",
-    "pythonInterest": ""
+    "pythonLevelSlackTS": "",
+    "pythonInterest": "",
+    "pythonInterestSlackTS": ""
 }

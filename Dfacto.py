@@ -19,6 +19,17 @@ SLACK_BOT_DIRECT_MESSAGE = "<@{id}>".format(id=SLACK_BOT_ID)
 SLACK_AT_HERE = "<@here>"
 
 
+###################################
+##### Send a Message to Slack #####
+###################################
+def messageSlack(client, channel, attachments, message):
+    try:
+        message = client.api_call("chat.postMessage", channel=channel, attachments=attachments, text=message, as_user=True)
+        return message
+    except Exception as e:
+        print("Error send Slack Message: {error}".format(error=e))
+
+
 ##########################
 ##### Handle Commands ####
 ##########################
@@ -41,10 +52,7 @@ def handleMessage(message, channel, user):
                 print("Error adding user to Mongo: {error}".format(error=e))
         response = "Welcome Message"
     ##### Send Message to Slack #####
-    try:
-        message = slack.api_call("chat.postMessage", channel=channel, attachments=attachments, text=response, as_user=True)
-    except Exception as e:
-        print("Error send Slack Message: {error}".format(error=e))
+    message = messageSlack(client=slack, channel=channel, attachments=attachments, message=response)
 
 
 ####################################
