@@ -5,6 +5,9 @@ from time import sleep
 from os import environ
 from slackclient import SlackClient
 from pymongo import MongoClient
+from bson import ObjectId
+from datetime import datetime
+import models
 
 
 ############################
@@ -19,13 +22,23 @@ SLACK_AT_HERE = "<@here>"
 ##########################
 ##### Handle Commands ####
 ##########################
-def handleMessage(message, channel):
+def handleMessage(message, channel, user):
     # Default Response
     response = "I'm sorry, I don't understand. Please use the `@Dfacto How do I use you?` command to see how to use me."
     attachments = []
     message = message.lower()
     ##### Opt-in/Welcome Message ####
     if(message == "opt in"):
+        # Add user to Mongo
+        if(not mongoDB.users.find_one({"slackUsername": user})):
+            newUser = models.USER
+            newUser["slackUsername"] = user
+            newUser["slackChannel"] = channel
+            newUser["optIn"] = datetime.strftime(datetime.now(), "%A, %B %d %Y %I:%M:%S.%f %p")
+            try:
+                mongoDB.users.insert_one(newUser)
+            except Exception as e:
+                print("Error adding user to Mongo: {error}".format(error=e))
         response = "Welcome Message"
     ##### Send Message to Slack #####
     try:
@@ -55,6 +68,7 @@ if __name__ == "__main__":
     slack = SlackClient(SLACK_BOT_TOKEN)
     # Instantiate Mongo Connection
     mongo = MongoClient("localhost", 27017)
+    mongoDB = mongo.USERS
     print("Successfully connected to Mongo!")
     READ_WEBSOCKET_DELAY = 1
     try:
@@ -65,7 +79,7 @@ if __name__ == "__main__":
                 # Parse Slack RTM and Handle Message
                 message, channel, user = parseSlackMessageRTM(slack.rtm_read())
                 if(message and channel and user):
-                    handleMessage(message=message, channel=channel)
+                    handleMessage(message=message, channel=channel, user=user)
                 sleep(READ_WEBSOCKET_DELAY)
     except Exception as e:
         print("Fatar Error: {error}".format(error=e))
