@@ -1,0 +1,19 @@
+{
+    "interests": ["string"],
+    "hobbies": ["string"],
+    "funfacts": ["string"],
+    "skills": [ {
+            "skillname": {
+                "skilllevel" : 0,
+                "skillinterest" : 0
+            }
+        }
+    ],
+    "consultant" : {
+        "name" : "string",
+        "skills" : "skills",
+        "interests" : "interests",
+        "hobbies" : "hobbies",
+        "funfacts" : "funfacts"
+    }
+}
