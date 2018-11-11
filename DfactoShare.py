@@ -4,6 +4,7 @@
 from os import environ
 from slackclient import SlackClient
 from pymongo import MongoClient
+from random import choice, randint
 from Dfacto import messageSlack
 
 
@@ -14,6 +15,67 @@ SLACK_BOT_TOKEN = environ.get("SLACK_BOT_TOKEN")
 SLACK_BOT_ID = environ.get("BOT_ID")
 SLACK_BOT_DIRECT_MESSAGE = "<@{id}>".format(id=SLACK_BOT_ID)
 SLACK_AT_HERE = "<@here>"
+
+
+#############################
+##### Generate Pair List#####
+#############################
+def generatePairs(count):
+    remaining = list(range(0, count))
+    pairs = []
+    while(True):
+        if(len(remaining) == 0):
+            break
+        if(len(remaining) == 1):
+            repeat = True
+            while(repeat):
+                second = choice(list(range(0, count-1)))
+                if(second != remaining[0]):
+                    repeat = False
+            pairs.append((remaining[0], second))
+            break
+        first = remaining.pop(0)
+        repeat = True
+        while(repeat):
+            second = choice(remaining)
+            if(second != first):
+                repeat = False
+        remaining.pop(remaining.index(second))
+        pairs.append((first, second))
+    return pairs
+
+
+#######################
+##### Share Facts #####
+#######################
+def shareFacts(users, pairs):
+    facts = ("client", "project", "interests", "hobbys", "funFact", "agileLevel",
+                    "agileInterest", "javascriptLevel", "javascriptInterest", "pythonLevel",
+                    "pythonInterest")
+    for pair in pairs:
+        factMessages = []
+        for person in pair:
+            notFound = True
+            while(notFound):
+                factChoice = choice(facts)
+                if(users[person][factChoice] != ""):
+                    notFound = False
+                    if(factChoice == "client"):
+                        factMessages.append("Did you know <@{user}> is at the {client} engagement?".format(user=users[person]["slackUsername"], client=users[person]["client"]))
+                    if(factChoice == "project"):
+                        factMessages.append("Did you know <@{user}> is working on the {project} project?".format(user=users[person]["slackUsername"], project=users[person]["project"]))
+                    if(factChoice == "interests"):
+                        factMessages.append("Did you know <@{user}> has the following interests: {interests}?".format(user=users[person]["slackUsername"], interests=users[person]["interests"]))
+                    if(factChoice == "hobbys"):
+                        factMessages.append("Did you know <@{user}> has the following hobbys: {hobbys}?".format(user=users[person]["slackUsername"], hobbys=users[person]["hobbys"]))
+                    if(factChoice == "funFact"):
+                        factMessages.append("Here are some fun acts about <@{user}>: {facts}".format(user=users[person]["slackUsername"], facts=users[person]["funFact"]))
+                    if("Level" in factChoice):
+                        factMessages.append("Did you know <@{user}> has a {level}/10 {skill} skill level?".format(user=users[person]["slackUsername"], level=users[person][factChoice], skill=factChoice.replace("Level", "")))
+                    if("Interest" in factChoice):
+                        factMessages.append("Did you know <@{user}> has a {interest}/10 interest in {skill}?".format(user=users[person]["slackUsername"], interest=users[person][factChoice], skill=factChoice.replace("Interest", "")))
+        messageSlack(client=slack, channel=users[pair[0]]["slackChannel"], attachments=[], message=factMessages[1])
+        messageSlack(client=slack, channel=users[pair[1]]["slackChannel"], attachments=[], message=factMessages[0])
 
 
 if __name__ == "__main__":
@@ -33,4 +95,5 @@ if __name__ == "__main__":
                 user["javascriptLevel"] != "" or user["javascriptInterest"] != "" or
                 user["pythonLevel"] != "" or user["pythonInterest"] != ""):
             users.append(user)
-    print(len(users))
+    pairs = generatePairs(count=len(users))
+    shareFacts(users=users, pairs=pairs)
