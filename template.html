@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <style type="text/css">
+        body {
+            padding-top: 5rem;
+        }
+
+        .starter-template {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+        }
+        .emp-profile{
+            padding: 3%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
+        .profile-img{
+            text-align: center;
+        }
+        .profile-img img{
+            width: 70%;
+            height: 100%;
+        }
+        .profile-img .file {
+            position: relative;
+            overflow: hidden;
+            margin-top: -20%;
+            width: 70%;
+            border: none;
+            border-radius: 0;
+            font-size: 15px;
+            background: #212529b8;
+        }
+        .profile-img .file input {
+            position: absolute;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+        .profile-head h5{
+            color: #333;
+        }
+        .profile-head h6{
+            color: #0062cc;
+        }
+        .profile-edit-btn{
+            border: none;
+            border-radius: 1.5rem;
+            width: 70%;
+            padding: 2%;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+        }
+        .proile-rating{
+            font-size: 12px;
+            color: #818182;
+            margin-top: 5%;
+        }
+        .proile-rating span{
+            color: #495057;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .profile-head .nav-tabs{
+            margin-bottom:5%;
+        }
+        .profile-head .nav-tabs .nav-link{
+            font-weight:600;
+            border: none;
+        }
+        .profile-head .nav-tabs .nav-link.active{
+            border: none;
+            border-bottom:2px solid #0062cc;
+        }
+        .profile-work{
+            padding: 14%;
+            margin-top: -15%;
+        }
+        .profile-work p{
+            font-size: 12px;
+            color: #818182;
+            font-weight: 600;
+            margin-top: 10%;
+        }
+        .profile-work a{
+            text-decoration: none;
+            color: #495057;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .profile-work ul{
+            list-style: none;
+        }
+        .profile-tab label{
+            font-weight: 600;
+        }
+        .profile-tab p{
+            font-weight: 600;
+            color: #0062cc;
+        }
+    </style>
+</head>
+
+    
+<body>
+
+<!--
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+-->
+
+    <main role="main" class="container">
+
+      <div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="danjohnsons.jpg" alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"/>
+<!--
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        Dan Johnson
+                                    </h5>
+                                    <h6>
+                                       <div class="row">
+                                           <div class="col-md-2">
+                                               Project:
+                                           </div>
+                                           <div class="col-md-4">
+                                               Cloud Computing
+                                           </div>
+                                       </div>
+                                    </h6>
+<!--                                    <p class="proile-rating">RANKINGS : <span>8/10</span></p>-->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Skills</a>
+                                </li>
+<!--
+                                <li class="nav-item">
+                                    <a class="nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">Skills</a>
+                                </li>
+-->
+                                <li class="nav-item">
+                                    <a class="nav-link" id="interests-tab" data-toggle="tab" href="#interests" role="tab" aria-controls="interests" aria-selected="false">Interests</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="hobbies-tab" data-toggle="tab" href="#hobbies" role="tab" aria-controls="hobbies" aria-selected="false">Hobbies</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+<!--
+                    <div class="col-md-2">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                    </div>
+-->
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <p></p>
+<!--
+                            <a href="">Delivery Leadership</a><br/>
+                            <a href="">Project Management</a><br/>
+                            <a href="">Sheer Awesomeness</a>
+-->
+                            <p></p>
+<!--
+                            <a href="">Cloud Computing</a><br/>
+                            <a href="">Amazon AWS</a><br/>
+                            <a href="">Chimay</a><br/>
+-->
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+<!--                                        <div class="row">-->
+                                            <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Agile</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Skill Level</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>5</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-4">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Interest Level</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>5</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Javascript</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Skill Level</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>1</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-4">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Interest Level</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>2</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Python</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Skill Level</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>1</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-4">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Interest Level</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>5</p>
+                                            </div>
+                                        </div>
+                                    
+                            </div>
+                            <div class="tab-pane fade" id="interests" role="tabpanel" aria-labelledby="interests-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Food</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Barbecue</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Landscaping Feature</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Koi Pond</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Date</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Walk on the beach</p>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="hobbies" role="tabpanel" aria-labelledby="hobbies-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Making</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Koi Ponds</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Growing</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Hydroponic Vegetables</p>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+        </div>
+
+    </main><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
