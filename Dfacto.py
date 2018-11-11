@@ -42,7 +42,6 @@ def handleMessage(message, channel, user):
     if(message == "opt in"):
         # Add user to Mongo
         if(not mongoDB.users.find_one({"slackUsername": user})):
-            '''
             newUser = models.USER
             newUser["slackUsername"] = user
             newUser["slackChannel"] = channel
@@ -52,11 +51,12 @@ def handleMessage(message, channel, user):
             newUser["slack"]["user"] = user
             newUser["slack"]["channel"] = channel
             newUser["slack"]["optIn"] = datetime.strftime(datetime.now(), "%A, %B %d %Y %I:%M:%S.%f %p")
+            '''
             try:
                 mongoDB.users.insert_one(newUser)
             except Exception as e:
                 print("Error adding user to Mongo: {error}".format(error=e))
-        response = "Welcome Message"
+        response = "Welcome to Dfacto, the personal trivia game from the creative minds at Daugherty Snake Charmers.  Each day you will receive a fun fact about a fellow Daugherty team member.  You will also be able to share information about yourself by answering one or more questions each day. Thank you for joining."
     ##### Send Message to Slack #####
     message = messageSlack(client=slack, channel=channel, attachments=attachments, message=response)
 

@@ -17,13 +17,8 @@ SLACK_BOT_ID = environ.get("BOT_ID")
 ############################
 ##### Retrieve Replies #####
 ############################
+'''
 def retrieveReplies(user):
-    '''
-    slackTS = ["nameSlackTS","clientSlackTS", "projectSlackTS", "interestsSlackTS", 
-                "hobbysSlackTS", "funFactSlackTS", "agileLevelSkackTS", "agileInterestSlackTS", 
-                "javascriptLevelSlackTS", "javascriptInterestSlackTS", "javascriptSlackTS", 
-                "pythonLevelSlackTS", "pythonInterestSlackTS"]
-    '''
     slackTS = [{"type": "name", "ts": user["name"]["ts"]}, 
                 {"type": "client", "ts": user["client"]["ts"]}, 
                 {"type": "project", "ts": user["project"]["ts"]},
@@ -43,7 +38,15 @@ def retrieveReplies(user):
                         mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {ts["type"]: {ts["type"]: slackTSReply, "ts": ts["ts"]}}})
                     #else:
                     #    mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {"skills": {ts["type"]: {ts["type"]: slackTSReply, "ts": ts["ts"]}}}})
-    '''
+'''
+############################
+##### Retrieve Replies #####
+############################
+def retrieveReplies(user):
+    slackTS = ["nameSlackTS","clientSlackTS", "projectSlackTS", "interestsSlackTS", 
+                "hobbysSlackTS", "funFactSlackTS", "agileLevelSlackTS", "agileInterestSlackTS", 
+                "javascriptLevelSlackTS", "javascriptInterestSlackTS",
+                "pythonLevelSlackTS", "pythonInterestSlackTS"]
     for ts in slackTS:
         if(user[ts] != "" and user[ts.replace("SlackTS", "")] == ""):
             replyData = slack.api_call("im.replies", channel=user["slackChannel"], thread_ts=user[ts])
@@ -51,7 +54,6 @@ def retrieveReplies(user):
                 if(reply["user"] == user["slackUsername"]):
                     slackTSReply = reply["text"]
                     mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {ts.replace("SlackTS", ""): slackTSReply}})
-    '''
 
 
 if __name__ == "__main__":

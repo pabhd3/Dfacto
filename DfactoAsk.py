@@ -17,6 +17,7 @@ SLACK_BOT_TOKEN = environ.get("SLACK_BOT_TOKEN")
 ##########################
 ##### Ask a Question #####
 ##########################
+'''
 def askAQuestion(user):
     question = "*Daily Question*\n"
     # Check if we have a name
@@ -83,6 +84,9 @@ def askAQuestion(user):
         except Exception as e:
             print("Error updating Mongo with Slack Message TS: {error}".format(error=e))
 '''
+##########################
+##### Ask a Question #####
+##########################
 def askAQuestion(user):
     question = "*Daily Question*\n"
     # Check if we have a name
@@ -95,10 +99,23 @@ def askAQuestion(user):
         slackTS = "clientSlackTS"
     # Check if we have a project
     elif(user["project"] == ""):
-        question += "_What projet are you currently working on?_"
+        question += "_What project are you currently working on?_"
         slackTS = "projectSlackTS"
+    # Check if we have interests
+    elif(user["interests"] == ""):
+        question += "_What are your interests?_"
+        slackTS = "interestsSlackTS"
+    # Check if we have hobbys
+    elif(user["hobbys"] == ""):
+        question += "_What are your hobbys?_"
+        slackTS = "hobbysSlackTS"
+    # Check if we have fun facts
+    elif(user["funFact"] == ""):
+        question += "_What are some fun facts about you?_"
+        slackTS = "funFactSlackTS"
     # Start running through skills
     else:
+        foundBlank = False
         for skill in ("agileLevel", "agileInterest", "javascriptLevel", 
                         "javascriptInterest", "pythonLevel", "pythonInterest"):
             if(user[skill] == ""):
@@ -107,17 +124,21 @@ def askAQuestion(user):
                 else:
                     question += "_On a scale of 0-10, how much interest do you have in {skill}_".format(skill=skill.replace("Interest", ""))
                 slackTS = "{skill}SlackTS".format(skill=skill)
+                foundBlank = True
+            if(foundBlank):
                 break
     question += "\nReply to this message's thread with your answer."
-    if(question != "*Daily Question*\n\nReply to this message with your answer."):
-        # Send the message to the user
-        message = messageSlack(client=slack, channel=user["slackChannel"], attachments=[], message=question)
-        # Update Mongo
-        try:
-            mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {slackTS: message["ts"]}})
-        except Exception as e:
-            print("Error updating Mongo with Slack Message TS: {error}".format(error=e))
-'''
+    try:
+        if(slackTS):
+            # Send the message to the user
+            message = messageSlack(client=slack, channel=user["slackChannel"], attachments=[], message=question)
+            # Update Mongo
+            try:
+                mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {slackTS: message["ts"]}})
+            except Exception as e:
+                print("Error updating Mongo with Slack Message TS: {error}".format(error=e))
+    except:
+        pass
 
 
 if __name__ == "__main__":

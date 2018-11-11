@@ -18,16 +18,17 @@ USER = {
     "hobbysSlackTS": "",
     "funFact": "",
     "funFactSlackTS": "",
-    # Skills
+    # Agile
     "agileLevel": "",
-    "agileLevelSkackTS": "",
+    "agileLevelSlackTS": "",
     "agileInterest": "",
     "agileInterestSlackTS": "",
+    # Javascript
     "javascriptLevel": "",
     "javascriptLevelSlackTS": "",
     "javascriptInterest": "",
     "javascriptInterestSlackTS": "",
-    "javascriptSlackTS": "",
+    # Python
     "pythonLevel": "",
     "pythonLevelSlackTS": "",
     "pythonInterest": "",
