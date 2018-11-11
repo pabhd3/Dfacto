@@ -25,4 +25,12 @@ if __name__ == "__main__":
     mongoDB = mongo.USERS
     print("Successfully connected to Mongo!")
     # Pull list of users
-    users = mongoDB.users.find()
+    users = []
+    for user in mongoDB.users.find():
+        if(user["client"] != "" or user["project"] != "" or
+                user["interests"] != "" or user["hobbys"] != "" or user["funFact"] != "" or
+                user["agileLevel"] != "" or user["agileInterest"] != "" or
+                user["javascriptLevel"] != "" or user["javascriptInterest"] != "" or
+                user["pythonLevel"] != "" or user["pythonInterest"] != ""):
+            users.append(user)
+    print(len(users))
