@@ -7,7 +7,7 @@ from slackclient import SlackClient
 from pymongo import MongoClient
 from bson import ObjectId
 from datetime import datetime
-import models
+import models, DfactoAsk
 
 
 ############################
@@ -38,8 +38,13 @@ def handleMessage(message, channel, user):
     response = "I'm sorry, I don't understand. Please use the `@Dfacto How do I use you?` command to see how to use me."
     attachments = []
     message = message.lower()
+    ##### How to use #####
+    if(message == "how do i use you" or message == "how do i use you?"):
+        response = "Here are the commands you can use with me: "
+        response += "\n    * `@Dfacto opt in` to opt in to the program. You will then daily recieve questions to answer and facts of others who have opt'd in." 
+        response += "\n    * `@Dfacto ask me` to recieve a new question. You will not, at this time, recieve repeat questions. Please not you might recieve a repeat question if you request questions too quickly."
     ##### Opt-in/Welcome Message ####
-    if(message == "opt in"):
+    elif(message == "opt in"):
         # Add user to Mongo
         if(not mongoDB.users.find_one({"slackUsername": user})):
             newUser = models.USER
@@ -57,8 +62,18 @@ def handleMessage(message, channel, user):
             except Exception as e:
                 print("Error adding user to Mongo: {error}".format(error=e))
         response = "Welcome to Dfacto, the personal trivia game from the creative minds at Daugherty Snake Charmers.  Each day you will receive a fun fact about a fellow Daugherty team member.  You will also be able to share information about yourself by answering one or more questions each day. Thank you for joining."
+        response += "\nPlease use the `@Dfacto How do I use you?` command to see how to use me."
+    ##### Trigger asking a question #####
+    elif(message == "ask me"):
+        try:
+            user = mongoDB.users.find_one({"slackChannel": channel})
+            DfactoAsk.askAQuestion(client=slack, user=user)
+            response = None
+        except:
+            response = "I'm sorry, something went wrong."
     ##### Send Message to Slack #####
-    message = messageSlack(client=slack, channel=channel, attachments=attachments, message=response)
+    if(response):
+        message = messageSlack(client=slack, channel=channel, attachments=attachments, message=response)
 
 
 ####################################

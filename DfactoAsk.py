@@ -87,7 +87,7 @@ def askAQuestion(user):
 ##########################
 ##### Ask a Question #####
 ##########################
-def askAQuestion(user):
+def askAQuestion(client, user):
     question = "*Daily Question*\n"
     # Check if we have a name
     if(user["name"] == ""):
@@ -131,13 +131,14 @@ def askAQuestion(user):
     try:
         if(slackTS):
             # Send the message to the user
-            message = messageSlack(client=slack, channel=user["slackChannel"], attachments=[], message=question)
+            message = messageSlack(client=client, channel=user["slackChannel"], attachments=[], message=question)
             # Update Mongo
             try:
                 mongoDB.users.update_one({"_id": user["_id"]}, {"$set": {slackTS: message["ts"]}})
             except Exception as e:
                 print("Error updating Mongo with Slack Message TS: {error}".format(error=e))
-    except:
+    except Exception as e:
+        print("askAQuestion() Error: {error}".format(error=e))
         pass
 
 
@@ -152,4 +153,4 @@ if __name__ == "__main__":
     # Pull list of users
     for userData in mongoDB.users.find():
         print(userData)
-        askAQuestion(user=userData)
+        askAQuestion(client=slack, user=userData)

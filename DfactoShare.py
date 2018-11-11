@@ -61,19 +61,21 @@ def shareFacts(users, pairs):
                 if(users[person][factChoice] != ""):
                     notFound = False
                     if(factChoice == "client"):
-                        factMessages.append("Did you know <@{user}> is at the {client} engagement?".format(user=users[person]["slackUsername"], client=users[person]["client"]))
+                        message = "Did you know <@{user}> is at the {client} engagement?".format(user=users[person]["slackUsername"], client=users[person]["client"])
                     if(factChoice == "project"):
-                        factMessages.append("Did you know <@{user}> is working on the {project} project?".format(user=users[person]["slackUsername"], project=users[person]["project"]))
+                        message = "Did you know <@{user}> is working on the {project} project?".format(user=users[person]["slackUsername"], project=users[person]["project"])
                     if(factChoice == "interests"):
-                        factMessages.append("Did you know <@{user}> has the following interests: {interests}?".format(user=users[person]["slackUsername"], interests=users[person]["interests"]))
+                        message = "Did you know <@{user}> has the following interests: {interests}?".format(user=users[person]["slackUsername"], interests=users[person]["interests"])
                     if(factChoice == "hobbys"):
-                        factMessages.append("Did you know <@{user}> has the following hobbys: {hobbys}?".format(user=users[person]["slackUsername"], hobbys=users[person]["hobbys"]))
+                        message = "Did you know <@{user}> has the following hobbys: {hobbys}?".format(user=users[person]["slackUsername"], hobbys=users[person]["hobbys"])
                     if(factChoice == "funFact"):
-                        factMessages.append("Here are some fun acts about <@{user}>: {facts}".format(user=users[person]["slackUsername"], facts=users[person]["funFact"]))
+                        message = "Here are some fun acts about <@{user}>: {facts}".format(user=users[person]["slackUsername"], facts=users[person]["funFact"])
                     if("Level" in factChoice):
-                        factMessages.append("Did you know <@{user}> has a {level}/10 {skill} skill level?".format(user=users[person]["slackUsername"], level=users[person][factChoice], skill=factChoice.replace("Level", "")))
+                        message = "Did you know <@{user}> has a {level}/10 {skill} skill level?".format(user=users[person]["slackUsername"], level=users[person][factChoice], skill=factChoice.replace("Level", ""))
                     if("Interest" in factChoice):
-                        factMessages.append("Did you know <@{user}> has a {interest}/10 interest in {skill}?".format(user=users[person]["slackUsername"], interest=users[person][factChoice], skill=factChoice.replace("Interest", "")))
+                        message = "Did you know <@{user}> has a {interest}/10 interest in {skill}?".format(user=users[person]["slackUsername"], interest=users[person][factChoice], skill=factChoice.replace("Interest", ""))
+            message += "\nFor an example of a site to see more information, click <{link}|here>.".format(link=environ.get("Dfacto_Example_Site"))
+            factMessages.append(message)
         messageSlack(client=slack, channel=users[pair[0]]["slackChannel"], attachments=[], message=factMessages[1])
         messageSlack(client=slack, channel=users[pair[1]]["slackChannel"], attachments=[], message=factMessages[0])
 
