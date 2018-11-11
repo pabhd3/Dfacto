@@ -5,7 +5,6 @@ from os import environ
 from slackclient import SlackClient
 from pymongo import MongoClient
 from bson import ObjectId
-from Dfacto import messageSlack
 
 
 ############################
@@ -13,6 +12,17 @@ from Dfacto import messageSlack
 ############################
 SLACK_BOT_TOKEN = environ.get("SLACK_BOT_TOKEN")
 
+
+###################################
+##### Send a Message to Slack #####
+###################################
+def messageSlack(client, channel, attachments, message):
+    try:
+        message = client.api_call("chat.postMessage", channel=channel, attachments=attachments, text=message, as_user=True)
+        return message
+    except Exception as e:
+        print("Error send Slack Message: {error}".format(error=e))
+        
 
 ##########################
 ##### Ask a Question #####
@@ -87,7 +97,7 @@ def askAQuestion(user):
 ##########################
 ##### Ask a Question #####
 ##########################
-def askAQuestion(client, user):
+def askAQuestion(client, mongoDB, user):
     question = "*Daily Question*\n"
     # Check if we have a name
     if(user["name"] == ""):
@@ -153,4 +163,4 @@ if __name__ == "__main__":
     # Pull list of users
     for userData in mongoDB.users.find():
         print(userData)
-        askAQuestion(client=slack, user=userData)
+        askAQuestion(client=slack, mongoDB=mongoDB, user=userData)

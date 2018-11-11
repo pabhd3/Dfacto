@@ -67,7 +67,7 @@ def handleMessage(message, channel, user):
     elif(message == "ask me"):
         try:
             user = mongoDB.users.find_one({"slackChannel": channel})
-            DfactoAsk.askAQuestion(client=slack, user=user)
+            DfactoAsk.askAQuestion(client=slack, mongoDB=mongoDB, user=user)
             response = None
         except:
             response = "I'm sorry, something went wrong."

@@ -5,7 +5,6 @@ from os import environ
 from slackclient import SlackClient
 from pymongo import MongoClient
 from random import choice, randint
-from Dfacto import messageSlack
 
 
 ############################
@@ -15,6 +14,17 @@ SLACK_BOT_TOKEN = environ.get("SLACK_BOT_TOKEN")
 SLACK_BOT_ID = environ.get("BOT_ID")
 SLACK_BOT_DIRECT_MESSAGE = "<@{id}>".format(id=SLACK_BOT_ID)
 SLACK_AT_HERE = "<@here>"
+
+
+###################################
+##### Send a Message to Slack #####
+###################################
+def messageSlack(client, channel, attachments, message):
+    try:
+        message = client.api_call("chat.postMessage", channel=channel, attachments=attachments, text=message, as_user=True)
+        return message
+    except Exception as e:
+        print("Error send Slack Message: {error}".format(error=e))
 
 
 #############################
@@ -29,6 +39,7 @@ def generatePairs(count):
         if(len(remaining) == 1):
             repeat = True
             while(repeat):
+                print(list(range(0, count-1)))
                 second = choice(list(range(0, count-1)))
                 if(second != remaining[0]):
                     repeat = False
